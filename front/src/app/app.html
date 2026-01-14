@@ -1,0 +1,161 @@
+<main class="page">
+  <section class="shell">
+    <!-- Logo / header -->
+    <header class="header">
+      <div class="logo">
+        <div class="logo-badge">▶</div>
+        <div class="logo-text">{{ logoText }}</div>
+      </div>
+      <div class="sub">Create users and manage them (front-first demo)</div>
+    </header>
+
+    <!-- Form -->
+    <section class="card">
+      <h1>Create user</h1>
+
+      <div class="form">
+        <label>
+          <span>Username</span>
+          <input
+            [value]="username()"
+            (input)="username.set(($any($event.target)).value)"
+            placeholder="e.g. youtube"
+            [class.invalid]="!!usernameError()"
+          />
+          @if (usernameError()) {
+            <small class="hint error">{{ usernameError() }}</small>
+          }
+        </label>
+
+        <label>
+          <span>Email</span>
+          <input
+            [value]="email()"
+            (input)="email.set(($any($event.target)).value)"
+            placeholder="e.g. youtube@demo.com"
+            [class.invalid]="!!emailError()"
+          />
+          @if (emailError()) {
+            <small class="hint error">{{ emailError() }}</small>
+          }
+        </label>
+
+        <div class="actions">
+          <button class="btn" (click)="save()" [disabled]="!canSave()">
+            {{ loading() ? 'Saving…' : 'Save' }}
+          </button>
+
+          <button class="btn ghost" (click)="refresh()" [disabled]="loading()">
+            Refresh
+          </button>
+        </div>
+
+        @if (error()) {
+          <p class="banner error">{{ error() }}</p>
+        }
+      </div>
+    </section>
+
+    <!-- Table -->
+    <section class="card">
+      <div class="table-head">
+        <h2>Users</h2>
+        <div class="count">{{ users().length }} total</div>
+      </div>
+
+      @if (users().length) {
+        <div class="table-wrap">
+          <table class="table">
+            <thead>
+              <tr>
+                <th class="col-id">ID</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th class="col-actions"></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              @for (u of users(); track u.id) {
+                <tr>
+                  <td class="muted">{{ u.id }}</td>
+
+                  <td>
+                    @if (editingId() === u.id) {
+                      <div class="edit-wrap">
+                        <input
+                          class="inline-input"
+                          [value]="editUsername()"
+                          (input)="editUsername.set(($any($event.target)).value)"
+                          (keydown.enter)="confirmEdit()"
+                          (keydown.escape)="cancelEdit()"
+                          [disabled]="loading()"
+                          autofocus
+                        />
+                      </div>
+                    } @else {
+                      {{ u.username }}
+                    }
+                  </td>
+
+                  <td class="muted">{{ u.email }}</td>
+
+                  <td class="actions-cell">
+                    <div class="row-actions">
+                      @if (editingId() !== u.id) {
+                        <!-- Edit -->
+                        <button
+                          class="icon-btn warn"
+                          title="Edit username"
+                          (click)="startEdit(u)"
+                          [disabled]="loading()"
+                        >
+                          <span class="material-icon" aria-hidden="true">edit</span>
+                        </button>
+
+                        <!-- Delete -->
+                        <button
+                          class="icon-btn danger"
+                          title="Delete"
+                          (click)="remove(u.id)"
+                          [disabled]="loading()"
+                        >
+                          <span class="material-icon" aria-hidden="true">delete</span>
+                        </button>
+                      } @else {
+                        <!-- Save -->
+                        <button
+                          class="icon-btn ok"
+                          title="Save"
+                          (click)="confirmEdit()"
+                          [disabled]="loading() || !canConfirmEdit()"
+                        >
+                          <span class="material-icon" aria-hidden="true">check_circle</span>
+                        </button>
+
+                        <!-- Cancel -->
+                        <button
+                          class="icon-btn cancel"
+                          title="Cancel"
+                          (click)="cancelEdit()"
+                          [disabled]="loading()"
+                        >
+                          <span class="material-icon" aria-hidden="true">cancel</span>
+                        </button>
+                      }
+                    </div>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      } @else {
+        <div class="empty">
+          <div class="empty-title">No users yet</div>
+          <div class="empty-sub">Create one using the form above.</div>
+        </div>
+      }
+    </section>
+  </section>
+</main>

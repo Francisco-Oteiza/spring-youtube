@@ -1,0 +1,10 @@
+# VS Code / OS
+.vscode/
+.DS_Store
+
+# Env / secrets
+.env
+.env.*
+
+# Logs
+*.log
