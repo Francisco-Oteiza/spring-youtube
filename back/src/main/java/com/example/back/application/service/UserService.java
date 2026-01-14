@@ -64,6 +64,20 @@ public class UserService implements
         return userRepositoryPort.updateUsername(id, newName);
     }
 
+    // @Override
+    // public User updateUsername(Long id, String username) {
+    // if (!userRepositoryPort.existsById(id)) {
+    // throw new UserNotFoundException(id);
+    // }
+
+    // User current = userRepositoryPort.findById(id)
+    // .orElseThrow(() -> new UserNotFoundException(id));
+
+    // User updated = new User(current.id(), username, current.email());
+
+    // return userRepositoryPort.save(updated);
+    // }
+
     @Override
     public void deleteById(Long id) {
         if (!userRepositoryPort.existsById(id)) {

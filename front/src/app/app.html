@@ -110,7 +110,11 @@
                           (click)="startEdit(u)"
                           [disabled]="loading()"
                         >
-                          <span class="material-icon" aria-hidden="true">edit</span>
+                          <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path
+                              d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25Zm2.92 2.83H5v-.92l8.06-8.06.92.92L5.92 20.08ZM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83Z"
+                            />
+                          </svg>
                         </button>
 
                         <!-- Delete -->
@@ -120,7 +124,11 @@
                           (click)="remove(u.id)"
                           [disabled]="loading()"
                         >
-                          <span class="material-icon" aria-hidden="true">delete</span>
+                          <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path
+                              d="M9 3h6l1 2h4v2H4V5h4l1-2Zm1 6h2v10h-2V9Zm4 0h2v10h-2V9ZM7 9h2v10H7V9Zm1 12h8a2 2 0 0 0 2-2V7H6v12a2 2 0 0 0 2 2Z"
+                            />
+                          </svg>
                         </button>
                       } @else {
                         <!-- Save -->
@@ -130,7 +138,11 @@
                           (click)="confirmEdit()"
                           [disabled]="loading() || !canConfirmEdit()"
                         >
-                          <span class="material-icon" aria-hidden="true">check_circle</span>
+                          <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path
+                              d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"
+                            />
+                          </svg>
                         </button>
 
                         <!-- Cancel -->
@@ -140,7 +152,11 @@
                           (click)="cancelEdit()"
                           [disabled]="loading()"
                         >
-                          <span class="material-icon" aria-hidden="true">cancel</span>
+                          <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path
+                              d="M18.3 5.71 12 12l6.3 6.29-1.41 1.42L12 13.41l-6.89 6.3-1.42-1.42L10.59 12 3.69 5.71 5.11 4.29 12 10.59l6.89-6.3z"
+                            />
+                          </svg>
                         </button>
                       }
                     </div>

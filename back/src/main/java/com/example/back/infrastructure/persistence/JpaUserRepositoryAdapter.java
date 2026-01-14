@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.example.back.application.port.out.UserRepositoryPort;
+import com.example.back.domain.exception.UserNotFoundException;
 import com.example.back.domain.model.User;
 
 public class JpaUserRepositoryAdapter implements UserRepositoryPort {
@@ -32,10 +33,11 @@ public class JpaUserRepositoryAdapter implements UserRepositoryPort {
 
     @Override
     public User updateUsername(Long id, String username) {
-        UserEntity entity = springDataUserRepository.findById(id).orElseThrow();
+        UserEntity entity = springDataUserRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException(id));
+
         entity.setUsername(username);
-        UserEntity saved = springDataUserRepository.save(entity);
-        return UserEntityMapper.toDomain(saved);
+        return UserEntityMapper.toDomain(springDataUserRepository.save(entity));
     }
 
     @Override
